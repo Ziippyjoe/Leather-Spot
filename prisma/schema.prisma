@@ -1,0 +1,91 @@
+// prisma/schema.prisma
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Categories like Shoes, Jackets, Bags, etc.
+model Category {
+  id          Int       @id @default(autoincrement())
+  name        String
+  slug        String    @unique            // for URLs
+  description String?                      // optional description
+  image       String?                      // optional image URL for homepage/admin
+  products    Product[]                    // one-to-many relation with products
+}
+
+// Individual products under categories
+model Product {
+  id          Int        @id @default(autoincrement())
+  name        String
+  slug        String     @unique           // friendly product URL
+  description String
+  priceCents  Int        // price stored in cents to avoid float issues
+  category    Category   @relation(fields: [categoryId], references: [id])
+  categoryId  Int
+  images      Image[]
+  gender      String?    // for filtering: male/female/unisex
+  size        String?    // for filtering: S/M/L etc.
+  color       String?    // for filtering
+  style       String?    // e.g., boots, loafers
+  stock       Int?       // optional inventory tracking
+  isFeatured  Boolean    @default(false)
+  isArchived  Boolean    @default(false)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  createdBy   User?      @relation(fields: [createdById], references: [id])
+  createdById Int?
+
+  cartItems   CartItem[] // opposite relation: product can be in many cart items
+
+  @@index([name])
+  @@index([categoryId, createdAt])
+}
+
+// Product images
+model Image {
+  id        Int      @id @default(autoincrement())
+  url       String
+  altText   String?   // optional alt text for accessibility
+  isPrimary Boolean   @default(false) // flag for main image
+  product   Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  productId Int
+}
+
+// Users of the site (customers + admins)
+// We store Firebase UID here; Firebase handles auth.
+model User {
+  id         Int      @id @default(autoincrement())
+  firebaseId String   @unique          // links to Firebase UID
+  name       String?
+  email      String   @unique
+  isAdmin    Boolean  @default(false)  // admin privileges
+  cart       Cart?
+  products   Product[] // products created by this user (admin)
+  createdAt  DateTime @default(now())
+}
+
+// A user's shopping cart
+model Cart {
+  id         Int        @id @default(autoincrement())
+  user       User?      @relation(fields: [userId], references: [id])
+  userId     Int?       @unique        // optional: allows guest carts when null
+  sessionId  String?    @unique        // optional: support guest/session carts
+  items      CartItem[]
+}
+
+// Items inside a cart (product + quantity)
+model CartItem {
+  id        Int      @id @default(autoincrement())
+  cart      Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  cartId    Int
+  product   Product  @relation(fields: [productId], references: [id])
+  productId Int
+  quantity  Int      @default(1)
+}
