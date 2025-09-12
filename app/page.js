@@ -2,7 +2,7 @@ import CategoryList from "./components/CategoryList";
 
 export default function Home() {
   return (
-    <main>
+    <main className="pt-20">
       <CategoryList />
     </main>
   );

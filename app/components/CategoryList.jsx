@@ -12,8 +12,8 @@ export default async function CategoryList() {
 
   return (
     <section className="max-w-6xl mx-auto px-4 py-12">
-      <h2 className="text-2xl font-semibold mb-6">Shop by category</h2>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+      <h2 className="text-lg mb-6">Shop by category</h2>
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {categories.map((cat) => (
           <Link key={cat.id} href={`/category/${cat.slug}`} className="group block">
             <div className="relative overflow-hidden bg-gray-100 h-80 flex items-center justify-center">
