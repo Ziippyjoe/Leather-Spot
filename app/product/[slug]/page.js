@@ -124,7 +124,7 @@ export default function ProductPage({ params }) {
         </div>
 
         {/* Right Side: Product Details (Sticky) */}
-        <div className="w-full md:w-1/2 flex flex-col gap-6 md:sticky md:top-28 md:self-start py-12 px-6 md:px-12 bg-white">
+        <div className="w-full md:w-1/2 flex flex-col gap-6 md:sticky md:top-28 md:self-start py-12 px-12 md:px-34 bg-white">
           <h1 className="uppercase font-mono text-2xl font-semibold">{product.name}</h1>
           <div className="border-t border-gray-200"></div>
           
@@ -171,7 +171,7 @@ export default function ProductPage({ params }) {
           <div className="border-t border-gray-200 pt-4">
             <h3 className="text-sm font-mono text-gray-700 mb-2">Shipping & Returns</h3>
             <ul className="text-sm font-sans text-gray-600 space-y-1">
-              <li>Free shipping on orders over $100.</li>
+              <li>Free shipping on orders over $1,000.</li>
               <li>30-day return policy for unused items.</li>
               <li>Estimated delivery: 3-5 business days.</li>
             </ul>
@@ -180,11 +180,11 @@ export default function ProductPage({ params }) {
           {/* Add to Cart Button */}
           <div className="border-t border-gray-200 pt-4">
             <button
-              className="w-full bg-black text-white px-6 py-3.5 hover:bg-gray-800 transition text-sm font-sans"
+              className="w-full bg-black text-white px-6 py-3.5 hover:bg-gray-800 transition text-sm font-sans cursor-pointer"
               onClick={() => handleAddToCart(product.id)}
               disabled={product.stock === 0}
             >
-              {product.stock > 0 ? 'Add to Bag' : 'Out of Stock'}
+              {product.stock > 0 ? 'Add to Cart' : 'Out of Stock'}
             </button>
           </div>
 

@@ -2,7 +2,7 @@ import React from 'react';
 
 function Footer() {
   return (
-    <footer className="bg-[#fdfdfd] text-[#0a0a0a] py-12 px-4">
+    <footer className="bg-[#fdfdfd] text-[#0a0a0a] py-12 px-4 border-t border-black/10">
       <div className="mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-4 gap-8">
         {/* Brand Section */}
         <div className="flex flex-col items-center md:items-start">
