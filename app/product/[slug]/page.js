@@ -78,29 +78,29 @@ export default function ProductPage({ params }) {
   }
 
   if (loading) {
-    return <div className="text-gray-500">Loading...</div>;
+    return <div className="text-gray-500 min-h-screen">Loading...</div>;
   }
 
   if (error) {
-    return <div className="text-red-500">{error}</div>;
+    return <div className="text-red-500 min-h-screen">{error}</div>;
   }
 
   if (!product) {
-    return <div className="text-red-500">Product not found</div>;
+    return <div className="text-red-500 min-h-screen">Product not found</div>;
   }
 
   return (
-    <main className="min-h-screen mx-auto">
-      <div className="w-full flex flex-col md:flex-row">
+    <main className="min-h-screen mx-auto mt-28 pb-38">
+      <div className="w-full h-full flex flex-col md:flex-row border-b border-black/10">
         {/* Left Side: Main Image + All Images */}
-        <div className="w-1/2">
+        <div className="w-full md:w-1/2 bg-black/4">
           {product.images.length > 0 ? (
             <div className="flex flex-col">
               {/* Main Image */}
               <img
                 src={product.images[0].url}
                 alt={product.images[0].altText ?? product.name}
-                className="w-full h-auto max-h-[44rem] object-cover pl-40"
+                className="w-full h-auto max-h-[55rem] object-cover"
               />
               {/* All Images */}
               {product.images.length > 1 && (
@@ -110,7 +110,7 @@ export default function ProductPage({ params }) {
                       key={image.url}
                       src={image.url}
                       alt={image.altText ?? product.name}
-                      className="w-full h-auto max-h-[45rem] object-cover pl-40"
+                      className="w-full h-auto max-h-[55rem] object-cover"
                     />
                   ))}
                 </div>
@@ -124,26 +124,79 @@ export default function ProductPage({ params }) {
         </div>
 
         {/* Right Side: Product Details (Sticky) */}
-        <div className="w-1/2 flex flex-col gap-4 md:sticky md:top-4 md:self-start py-33 pl-35 pr-48">
-          <h1>{product.name}</h1>
-          <p className="text-sm">
-            ${(product.priceCents / 100).toLocaleString()}
-          </p>
-          <p className="text-gray-700 text-xs">{product.description}</p>
+        <div className="w-full md:w-1/2 flex flex-col gap-6 md:sticky md:top-28 md:self-start py-12 px-6 md:px-12 bg-white">
+          <h1 className="uppercase font-mono text-2xl font-semibold">{product.name}</h1>
+          <div className="border-t border-gray-200"></div>
+          
+          {/* Price */}
+          <div className="flex justify-between items-center">
+            <span className="text-sm font-sans text-gray-700">Price</span>
+            <span className="text-lg font-medium text-gray-900">
+              ${(product.priceCents / 100).toLocaleString()}
+            </span>
+          </div>
 
-          <ul className="text-gray-600 text-sm">
-            {product.color && <li>Color: {product.color}</li>}
-            {product.size && <li>Size: {product.size}</li>}
-            {product.gender && <li>Gender: {product.gender}</li>}
-            {product.stock != null && <li>Stock: {product.stock}</li>}
-          </ul>
+          {/* Description */}
+          <div className="border-t border-gray-200 pt-4">
+            <h3 className="text-sm font-mono text-gray-700 mb-2">Description</h3>
+            <p className="text-sm font-sans text-gray-600">{product.description}</p>
+          </div>
 
-          <button
-            className="mt-4 bg-black text-white px-6 py-2.5 hover:bg-gray-800 transition text-sm"
-            onClick={() => handleAddToCart(product.id)}
-          >
-            Add to Bag
-          </button>
+          {/* Product Details */}
+          <div className="border-t border-gray-200 pt-4">
+            <h3 className="text-sm font-mono text-gray-700 mb-2">Details</h3>
+            <ul className="text-sm font-sans text-gray-600 space-y-1">
+              {product.color && <li>Color: {product.color}</li>}
+              {product.size && <li>Size: {product.size}</li>}
+              {product.gender && <li>Gender: {product.gender}</li>}
+              {product.stock != null && (
+                <li>Availability: {product.stock > 0 ? `${product.stock} in stock` : 'Out of stock'}</li>
+              )}
+              <li>Material: Premium Full-Grain Leather</li>
+              <li>Origin: Handcrafted in Craftsville, USA</li>
+            </ul>
+          </div>
+
+          {/* Care Instructions */}
+          <div className="border-t border-gray-200 pt-4">
+            <h3 className="text-sm font-mono text-gray-700 mb-2">Care Instructions</h3>
+            <ul className="text-sm font-sans text-gray-600 space-y-1">
+              <li>Keep away from excessive moisture.</li>
+              <li>Use a leather conditioner every 6 months.</li>
+              <li>Store in a dust bag when not in use.</li>
+            </ul>
+          </div>
+
+          {/* Shipping Info */}
+          <div className="border-t border-gray-200 pt-4">
+            <h3 className="text-sm font-mono text-gray-700 mb-2">Shipping & Returns</h3>
+            <ul className="text-sm font-sans text-gray-600 space-y-1">
+              <li>Free shipping on orders over $100.</li>
+              <li>30-day return policy for unused items.</li>
+              <li>Estimated delivery: 3-5 business days.</li>
+            </ul>
+          </div>
+
+          {/* Add to Cart Button */}
+          <div className="border-t border-gray-200 pt-4">
+            <button
+              className="w-full bg-black text-white px-6 py-3.5 hover:bg-gray-800 transition text-sm font-sans"
+              onClick={() => handleAddToCart(product.id)}
+              disabled={product.stock === 0}
+            >
+              {product.stock > 0 ? 'Add to Bag' : 'Out of Stock'}
+            </button>
+          </div>
+
+          {/* Back to Shop Link */}
+          <div className="border-t border-gray-200 pt-4 text-center">
+            <Link
+              href="/shop"
+              className="text-sm font-sans text-gray-600 hover:underline hover:text-black transition"
+            >
+              Continue Shopping
+            </Link>
+          </div>
         </div>
       </div>
     </main>

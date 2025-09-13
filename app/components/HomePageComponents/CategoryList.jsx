@@ -11,8 +11,8 @@ export default async function CategoryList() {
   const categories = await res.json();
 
   return (
-    <section className="max-w-6xl mx-auto px-4 py-12">
-      <h2 className="text-xl mb-6 w-full flex justify-center tracking-tighter">Shop by Category</h2>
+    <section className="max-w-7xl mx-auto px-4 py-20">
+      <h2 className="text-xl mb-15 w-full flex justify-center tracking-tighter">Shop by Category</h2>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {categories.map((cat) => (
           <Link key={cat.id} href={`/category/${cat.slug}`} className="group block mb-4">
@@ -28,7 +28,7 @@ export default async function CategoryList() {
                 <img
                   src={cat.products[0].images[0].url}
                   alt={cat.name}
-                  className="w-full h-full object-cover transition-transform group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform group-hover:scale-108"
                 />
               ) : (
                 <div className="text-gray-600 font-medium">{cat.name}</div>
