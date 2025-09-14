@@ -24,7 +24,7 @@ export default function FeaturedCategories() {
   const categories = featuredCategories; // Static data for now
 
   return (
-    <section className="py-24 px-6 max-w-7xl mx-auto bg-white">
+    <section className="py-24 px-6 max-w-7xl mx-auto ">
       <h2 className="text-2xl font-mono uppercase mb-6 text-center">Featured Sale</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {categories.map((category) => (

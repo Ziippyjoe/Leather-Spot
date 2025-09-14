@@ -84,7 +84,7 @@ function Footer() {
               Email: <a href="mailto:support@leatherspot.com" className="hover:underline">support@leatherspot.com</a>
             </p>
             <p className="text-gray-600">Phone: (555) 123-4567</p>
-            <p className="text-gray-600">123 Leather Lane, Craftsville, USA</p>
+            <p className="text-gray-600">123 La Leathere , Aurevoir , FRANCE</p>
             {/* Newsletter Signup */}
             <div>
               <p className="text-gray-600 mb-2">Join our newsletter for exclusive offers:</p>

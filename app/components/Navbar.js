@@ -1,30 +1,31 @@
-import React from 'react';
-import { Search, ShoppingCart, Menu } from 'lucide-react';
+import { Search, ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
+import NavbarMenu from './Menu';
 
-function Navbar() {
+export default function Navbar() {
+  
   return (
     <nav className="fixed top-0 left-0 w-full z-[1000] bg-[#fdfdfd] border-b border-gray-200">
       {/* Top Tier */}
       <div className="h-16 flex justify-between items-center px-4 md:px-8 font-sans tracking-tighter">
         {/* Left Side: Menu and Main Links */}
         <div className="flex gap-4 md:gap-6 items-center text-sm">
-          <Menu className="cursor-pointer w-5 h-5 text-gray-800 hover:text-black transition" />
-          <Link href="/shop" className="hover:underline transition text-gray-800">
+          <NavbarMenu/>
+          <Link href="/shop" className="hover:underline transition text-gray-800 z-600">
             Shop
           </Link>
-          <Link href="/collections" className="hover:underline transition text-gray-800">
+          <Link href="/collections" className="hover:underline transition text-gray-800 z-600">
             Collections
           </Link>
-          <Link href="/about" className="hover:underline transition text-gray-800">
+          <Link href="/about" className="hover:underline transition text-gray-800 z-600">
             About
           </Link>
         </div>
 
         {/* Center: Brand Logo */}
-        <div className="absolute left-1/2 transform -translate-x-1/2 text-xl md:text-2xl font-mono font-semibold text-gray-800">
+        <Link href='/' className="absolute left-1/2 transform -translate-x-1/2 text-xl md:text-2xl font-mono font-semibold text-gray-800">
           LEATHER SPOT
-        </div>
+        </Link>
 
         {/* Right Side: Contact, Search, Cart */}
         <div className="flex gap-4 md:gap-6 items-center text-sm">
@@ -61,5 +62,3 @@ function Navbar() {
     </nav>
   );
 }
-
-export default Navbar;

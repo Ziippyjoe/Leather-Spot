@@ -4,16 +4,16 @@ import { prisma } from '@/lib/prisma';
 // Server Component: Fetch data
 export default async function CategoryPage({ params }) {
   // Await params to get slug
-  const { slug } = await params;
+  const { category } = await params;
 
   // Validate slug
-  if (!slug || typeof slug !== 'string') {
+  if (!category || typeof category !== 'string') {
     return <div className="text-red-500">Invalid category slug</div>;
   }
 
   try {
     const category = await prisma.category.findUnique({
-      where: { slug },
+      where: { category },
       include: {
         products: {
           include: { images: true },
@@ -28,7 +28,7 @@ export default async function CategoryPage({ params }) {
 
     return (
       <main className="mx-auto relative pt-28 pb-20 min-h-screen">
-        <div className="sticky top-28 px-15 w-full py-2 mb-4 bg-[#fdfdfd] z-50">
+        <div className="sticky top-28 px-15 w-full pb-0.5 pt-2 mb-4 bg-[#fdfdfd] z-50">
           <p className="font-xs font-mono mb-2">{category.name}</p>
           
         </div>
@@ -40,7 +40,7 @@ export default async function CategoryPage({ params }) {
             {category.products.map((product) => (
               <Link
                 key={product.id}
-                href={`/product/${product.slug}`}
+                href={`/${category.slug}/${product.slug}`}
                 className="group block mb-6"
               >
                 <div className="relative overflow-hidden bg-black/8 h-110 flex items-center justify-center">
