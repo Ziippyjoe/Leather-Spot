@@ -78,7 +78,7 @@ export default function ProductPage({ params }) {
   }
 
   if (loading) {
-    return <div className="text-gray-500 min-h-screen">Loading...</div>;
+    return <div className="text-gray-500 min-h-screen flex justify-center items-center">Loading...</div>;
   }
 
   if (error) {

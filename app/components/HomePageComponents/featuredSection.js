@@ -20,34 +20,15 @@ async function fetchFeaturedCategories() {
 */
 
 export default function FeaturedCategories() {
-  // const categories = await fetchFeaturedCategories(); // Use this if fetching from database
-  const categories = featuredCategories; // Static data for now
 
   return (
-    <section className="py-24 px-6 max-w-7xl mx-auto ">
-      <h2 className="text-2xl font-mono uppercase mb-6 text-center">Featured Sale</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {categories.map((category) => (
-          <Link
-            key={category.id}
-            href={`/shop?category=${category.slug}`}
-            className="group"
-          >
-            <div className="border border-black/10 overflow-hidden">
-              <img
-                src={category.image}
-                alt={category.name}
-                className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
-              />
-              <div className="p-4 text-center">
-                <h3 className="text-sm font-mono uppercase">{category.name}</h3>
-                <p className="text-blue-500 text-sm mt-2 group-hover:underline">
-                  Shop Now
-                </p>
-              </div>
-            </div>
-          </Link>
-        ))}
+    <section className="py-24 mx-auto ">
+      <h2 className="text-2xl font-mono uppercase mb-6 text-center">Featured</h2>
+      <div className="flex w-full h-220">
+          <div className='h-full w-[40%] bg-amber-900/70'>
+            <img src="/featuredleft.jpeg" alt="featured editorial" className="w-full h-full object-cover object-top" />
+          </div>
+          <div className='h-full w-[60%] bg-black'></div>
       </div>
     </section>
   );

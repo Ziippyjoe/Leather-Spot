@@ -37,7 +37,7 @@ export default async function CategoryPage({ params }) {
 
   return (
     <main className="mx-auto relative pt-16 pb-20 min-h-screen">
-      <div className="sticky top-16 px-9 w-full pb-0.5 pt-3 mb-4 bg-[#fdfdfd] z-50">
+      <div className="sticky top-12 px-9 w-full pb-0.5 pt-3 mb-4 bg-[#fdfdfd] z-50">
         <p className="text-xs font-mono mb-2">{category.name}</p>
       </div>
 

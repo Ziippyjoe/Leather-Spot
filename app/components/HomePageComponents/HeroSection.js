@@ -29,7 +29,7 @@ function HeroSection() {
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: parentDuration + tagDelayStep * 0, duration: 0.45, ease: 'easeOut' }}
-            className="absolute top-92 right-5 bg-[#1b1b1b]/70 text-white/70 px-4 py-2 text-[9px] uppercase tracking-wider backdrop-blur"
+            className="absolute top-92 right-5 bg-[#1b1b1b]/70 text-white/90 px-4 py-2 text-[9px] uppercase tracking-wider backdrop-blur-xl"
           >
             Bags & accessories
           </motion.div>
@@ -42,7 +42,7 @@ function HeroSection() {
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: parentDuration + tagDelayStep * 1, duration: 0.45, ease: 'easeOut' }}
-            className="absolute top-60 right-10 bg-[#1b1b1b]/70 text-white/70 px-4 py-2 text-[9px] uppercase tracking-wider backdrop-blur"
+            className="absolute top-60 right-10 bg-[#1b1b1b]/70 text-white/90 px-4 py-2 text-[9px] uppercase tracking-wider backdrop-blur-xl"
           >
             Coats & Jackets
           </motion.div>
@@ -55,7 +55,7 @@ function HeroSection() {
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: parentDuration + tagDelayStep * 2, duration: 0.45, ease: 'easeOut' }}
-            className="absolute top-120 left-7 bg-[#1b1b1b]/70 text-white/70 px-4 py-2 text-[9px] uppercase tracking-wider backdrop-blur"
+            className="absolute top-120 left-7 bg-[#1b1b1b]/70 text-white/90 px-4 py-2 text-[9px] uppercase tracking-wider backdrop-blur-xl"
           >
             Tops & Bottoms
           </motion.div>
@@ -68,7 +68,7 @@ function HeroSection() {
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: parentDuration + tagDelayStep * 3, duration: 0.45, ease: 'easeOut' }}
-            className="absolute top-60 right-18 bg-[#1b1b1b]/70 text-white/70 px-4 py-2 text-[9px] uppercase tracking-wider backdrop-blur"
+            className="absolute top-60 right-18 bg-[#1b1b1b]/70 text-white/90 px-4 py-2 text-[9px] uppercase tracking-wider backdrop-blur-xl"
           >
             Shoes & Boots
           </motion.div>

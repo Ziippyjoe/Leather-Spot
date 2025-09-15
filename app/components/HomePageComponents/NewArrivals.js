@@ -20,10 +20,10 @@ export default async function NewArrivals() {
         {products.map((product) => (
           <Link key={product.id} href={`/new-arrival/${product.slug}`} className="group">
             <img
-                src={product.images[0]?.url || '/images/placeholder.jpg'}
-                alt={product.name}
-                className="w-full h-90 object-cover group-hover:scale-105 transition-transform duration-300"
-              />
+              src={product.images[0]?.url || '/images/placeholder.jpg'}
+              alt={product.name}
+              className="w-full h-90 object-cover group-hover:scale-105 transition-transform duration-300 bg-black/7"
+            />
             <div className='p-2 flex gap-4 justify-between'>
               <h3 className="text-xs font-mono uppercase">{product.name}</h3>
               <p className="text-gray-600 text-xs">
@@ -31,9 +31,6 @@ export default async function NewArrivals() {
               </p>
               
             </div>
-            <p className="text-blue-500 text-xs mt-2 group-hover:underline p-2">
-                View Details
-              </p>
           </Link>
         ))}
       </div>

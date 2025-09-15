@@ -5,7 +5,7 @@ function FloatingCircle() {
   return (
     <div className="fixed bottom-10 right-7 z-[1000]">
       <div
-        className="h-16 w-16 bg-white rounded-full flex items-center justify-center"
+        className="h-16 w-16 bg-white rounded-full flex items-center justify-center hover:scale-107 transition ease-in-out"
         style={{
           boxShadow: "0px 1px 5px grey",
         }}

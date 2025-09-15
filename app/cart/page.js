@@ -20,7 +20,6 @@ export default function CartPage() {
       }
 
       try {
-        console.log('Fetching cart with sessionId:', sessionId);
         const response = await fetch('/api/cart', {
           headers: { 'x-session-id': sessionId },
         });
@@ -28,7 +27,6 @@ export default function CartPage() {
           throw new Error(`Failed to fetch cart: ${response.statusText}`);
         }
         const data = await response.json();
-        console.log('Cart API response:', JSON.stringify(data, null, 2));
         setCart(data);
         setError(null); // Clear error on successful fetch
         setLoading(false);
@@ -59,7 +57,6 @@ export default function CartPage() {
         throw new Error('Failed to remove item');
       }
       const updatedCart = await response.json();
-      console.log('Updated cart after removal:', JSON.stringify(updatedCart, null, 2));
       setCart(updatedCart);
       setError(null); // Clear error
       alert('Item removed from cart');
@@ -84,7 +81,6 @@ export default function CartPage() {
         throw new Error('Failed to update quantity');
       }
       const updatedCart = await response.json();
-      console.log('Updated cart after increment:', JSON.stringify(updatedCart, null, 2));
       setCart(updatedCart);
       setError(null); // Clear error
     } catch (err) {
@@ -116,7 +112,6 @@ export default function CartPage() {
         throw new Error('Failed to update quantity');
       }
       const updatedCart = await response.json();
-      console.log('Updated cart after decrement:', JSON.stringify(updatedCart, null, 2));
       setCart(updatedCart);
       setError(null); // Clear error
     } catch (err) {
