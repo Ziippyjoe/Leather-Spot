@@ -11,13 +11,13 @@ export default function Navbar() {
         {/* Left Side: Menu and Main Links */}
         <div className="flex gap-4 md:gap-6 items-center text-sm">
           <NavbarMenu/>
-          <Link href="/shop" className="hover:underline transition text-gray-800 z-600">
+          <Link href="/shop" className="hover:underline transition text-gray-800">
             Shop
           </Link>
-          <Link href="/collections" className="hover:underline transition text-gray-800 z-600">
+          <Link href="/collections" className="hover:underline transition text-gray-800">
             Collections
           </Link>
-          <Link href="/about" className="hover:underline transition text-gray-800 z-600">
+          <Link href="/about" className="hover:underline transition text-gray-800">
             About
           </Link>
         </div>

@@ -93,14 +93,14 @@ export default function ProductPage({ params }) {
     <main className="min-h-screen mx-auto mt-28 pb-38">
       <div className="w-full h-full flex flex-col md:flex-row border-b border-black/10">
         {/* Left Side: Main Image + All Images */}
-        <div className="w-full md:w-1/2 bg-black/4">
+        <div className="w-full md:w-1/2 bg-black/6">
           {product.images.length > 0 ? (
             <div className="flex flex-col">
               {/* Main Image */}
               <img
                 src={product.images[0].url}
                 alt={product.images[0].altText ?? product.name}
-                className="w-full h-auto max-h-[55rem] object-cover"
+                className="w-full h-auto max-h-[55rem] object-cover px-15 "
               />
               {/* All Images */}
               {product.images.length > 1 && (
@@ -117,14 +117,14 @@ export default function ProductPage({ params }) {
               )}
             </div>
           ) : (
-            <div className="w-full h-80 bg-black/10 flex items-center justify-center">
+            <div className="w-full h-80 bg-black/6 flex items-center justify-center">
               No image
             </div>
           )}
         </div>
 
         {/* Right Side: Product Details (Sticky) */}
-        <div className="w-full md:w-1/2 flex flex-col gap-6 md:sticky md:-top-38 md:self-start py-12 px-12 md:px-40 bg-white">
+        <div className="w-full md:w-1/2 flex flex-col gap-6 md:sticky md:-top-38 md:self-start py-16 px-12 md:px-40 bg-white">
           <h1 className="uppercase font-mono text-2xl font-semibold">{product.name}</h1>
           <div className="border-t border-gray-200"></div>
           
