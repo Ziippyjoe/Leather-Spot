@@ -15,15 +15,15 @@ export default function NavbarMenu() {
       {/* Hamburger/X Button */}
       <button onClick={toggleMenu} className="z-[1100] relative">
         {showMenu ? (
-          <X className="cursor-pointer w-5 h-5 text-gray-800 hover:text-black transition" />
+          <X className="cursor-pointer w-5 h-5 text-black transition" />
         ) : (
-          <Menu className="cursor-pointer w-5 h-5 text-gray-800 hover:text-black transition" />
+          <Menu className="cursor-pointer w-5 h-5 text-white transition" />
         )}
       </button>
 
       {/* Overlay */}
       <div
-        className={`fixed top-0 left-0 w-full h-screen bg-black/30 z-[100] transition-opacity duration-300 ${
+        className={`fixed top-0 right-0 w-full h-screen bg-black/30 z-[100] transition-opacity duration-300 ${
           showMenu ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
         onClick={toggleMenu}

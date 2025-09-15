@@ -51,7 +51,7 @@ export default async function CategoryPage({ params }) {
               href={`/${category.slug}/${product.slug}`}
               className="group block mb-6"
             >
-              <div className="relative overflow-hidden bg-black/10 h-120 flex items-center justify-center">
+              <div className="relative overflow-hidden bg-[#32291b1f] h-120 flex items-center justify-center">
                 {product.images?.length > 0 ? (
                   <img
                     src={product.images[0].url}

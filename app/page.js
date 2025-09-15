@@ -5,7 +5,7 @@ import NewArrivals from "./components/HomePageComponents/NewArrivals";
 
 export default function Home() {
   return (
-    <main className="pt-28 min-h-screen">
+    <main className="min-h-screen">
       <HeroSection />
       <CategoryList />
       <FeaturedCategories />
