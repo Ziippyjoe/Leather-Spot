@@ -22,3 +22,10 @@ body {
   padding: 0;
   min-height: 100vh;
 }
+
+/* global or component CSS */
+.nav-link {
+  mix-blend-mode: difference;
+  color: white;            /* fallback; actual appearance depends on background */
+  -webkit-font-smoothing: antialiased;
+}

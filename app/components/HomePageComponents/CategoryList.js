@@ -16,7 +16,7 @@ export default async function CategoryList() {
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {categories.map((cat) => (
           <Link key={cat.id} href={`/${cat.slug}`} className="group block mb-4">
-            <div className="relative overflow-hidden bg-black/5 h-100 flex items-center justify-center p-8">
+            <div className="relative overflow-hidden bg-black/5 h-100 flex items-center justify-center">
               { /* Prefer category.image, fallback to first product primary image if available */ }
               {cat.image ? (
                 <img

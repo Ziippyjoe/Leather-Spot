@@ -160,7 +160,7 @@ export default function CartPage() {
 
   return (
     <main className="min-h-screen mx-auto max-w-7xl pb-20 pt-24 bg-white px-6">
-      <h1 className="mb-4 w-full text-sm italic sticky top-18 pt-13 pb-2 bg-white border-b border-black/10 z-20">Shopping Cart</h1>
+      <h1 className="mb-4 w-full text-sm italic pt-13 pb-2 bg-white border-b border-black/10 z-20">Shopping Cart</h1>
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Cart Items */}
         <div className="flex-1">

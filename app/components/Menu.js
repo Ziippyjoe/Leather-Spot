@@ -17,7 +17,7 @@ export default function NavbarMenu() {
         {showMenu ? (
           <X className="cursor-pointer w-5 h-5 text-black transition" />
         ) : (
-          <Menu className="cursor-pointer w-5 h-5 text-white transition" />
+          <Menu className="cursor-pointer w-4 h-4 transition" />
         )}
       </button>
 

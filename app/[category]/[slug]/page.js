@@ -90,7 +90,7 @@ export default function ProductPage({ params }) {
   }
 
   return (
-    <main className="min-h-screen mx-auto mt-28 pb-38">
+    <main className="min-h-screen mx-auto mt-16 pb-38">
       <div className="w-full h-full flex flex-col md:flex-row border-b border-black/10">
         {/* Left Side: Main Image + All Images */}
         <div className="w-full md:w-1/2 bg-black/6">
