@@ -6,35 +6,27 @@ export async function POST(request) {
   try {
     const formData = await request.formData();
     const file = formData.get('file');
-
     if (!file) {
-      return NextResponse.json({ error: 'No file provided' }, { status: 400 });
+      return NextResponse.json({ error: 'No file uploaded' }, { status: 400 });
     }
-
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-
+    const buffer = Buffer.from(await file.arrayBuffer());
     const result = await new Promise((resolve, reject) => {
-      cloudinary.uploader.upload_stream(
-        { resource_type: 'image', upload_preset: 'leather_spot_unsigned' }, // Replace with your preset name
+      const uploadStream = cloudinary.uploader.upload_stream(
+        { resource_type: 'image' },
         (error, result) => {
-          if (error) {
-            console.error('Cloudinary upload error:', error);
-            reject(error);
-          } else {
-            resolve(result);
-          }
+          if (error) reject(error);
+          else resolve(result);
         }
-      ).end(buffer);
+      );
+      uploadStream.end(buffer);
     });
-
-    if (!result.secure_url) {
-      throw new Error('Upload failed: No secure_url returned');
-    }
-
-    return NextResponse.json({ secure_url: result.secure_url });
+    console.log('Upload result:', result);
+    return NextResponse.json({
+      secure_url: result.secure_url,
+      public_id: result.public_id,
+    }, { status: 200 });
   } catch (error) {
-    console.error('Upload route error:', error.message, error);
-    return NextResponse.json({ error: error.message || 'Upload failed' }, { status: 500 });
+    console.error('Upload error:', error);
+    return NextResponse.json({ error: `Failed to upload image: ${error.message}` }, { status: 500 });
   }
 }

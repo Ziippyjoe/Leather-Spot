@@ -1,33 +1,67 @@
 'use client';
+
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
+import { useRouter, useParams } from 'next/navigation';
+import Link from 'next/link';
 
-export default function AddProductPage() {
+export default function EditProductPage() {
   const router = useRouter();
-  const { register, handleSubmit, formState: { errors }, reset } = useForm();
+  const params = useParams();
+  const productId = params.id;
+  const { register, handleSubmit, formState: { errors }, setValue } = useForm();
   const [uploading, setUploading] = useState(false);
-  const [images, setImages] = useState([]); // Store objects with url and public_id
+  const [images, setImages] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [product, setProduct] = useState(null);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch('/api/categories')
-      .then((res) => res.json())
-      .then((data) => setCategories(data))
-      .catch((error) => console.error('Error fetching categories:', error));
-  }, []);
+    const fetchData = async () => {
+      try {
+        const res = await fetch(`/api/products/${productId}`);
+        if (!res.ok) throw new Error(`Failed to fetch product: ${res.status}`);
+        const data = await res.json();
+        setProduct(data);
+        setImages(data.images || []);
+        setValue('name', data.name);
+        setValue('description', data.description);
+        setValue('price', (data.priceCents / 100).toFixed(2));
+        setValue('categoryId', data.categoryId);
+        setValue('gender', data.gender || '');
+        setValue('size', data.size || '');
+        setValue('color', data.color || '');
+        setValue('style', data.style || '');
+        setValue('stock', data.stock || '');
+        setValue('isFeatured', data.isFeatured);
+        setValue('isArchived', data.isArchived);
+      } catch (error) {
+        console.error('Error fetching product:', error);
+        setError('Failed to load product. Check console.');
+      }
+
+      try {
+        const res = await fetch('/api/categories');
+        if (res.ok) setCategories(await res.json());
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+
+    if (productId) fetchData();
+  }, [productId, setValue]);
 
   const onSubmit = async (data) => {
     if (images.length === 0) {
       alert('At least one image is required!');
       return;
     }
-
+  
     setUploading(true);
     try {
       const slug = data.name.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
-      const response = await fetch('/api/add-product', {
-        method: 'POST',
+      const response = await fetch(`/api/products/${productId}`, {
+        method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: data.name,
@@ -36,10 +70,11 @@ export default function AddProductPage() {
           priceCents: Math.round(parseFloat(data.price) * 100),
           categoryId: parseInt(data.categoryId),
           images: images.map((img, index) => ({
+            id: img.id || undefined,
             url: img.url,
-            public_id: img.public_id,
-            isPrimary: index === 0, // First image is primary
-            altText: `${data.name} - Image ${index + 1}`,
+            public_id: img.public_id || null, // Include public_id
+            altText: img.altText || `${data.name} - Image ${index + 1}`,
+            isPrimary: img.isPrimary || index === 0,
           })),
           gender: data.gender || null,
           size: data.size || null,
@@ -50,20 +85,13 @@ export default function AddProductPage() {
           isArchived: data.isArchived || false,
         }),
       });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to create product');
-      }
-      const newProduct = await response.json();
-      console.log('New product created:', newProduct);
-      alert('Product added successfully!');
-      reset();
-      setImages([]);
-      router.push(`/product/${newProduct.slug}`);
+  
+      if (!response.ok) throw new Error('Failed to update product');
+      alert('Product updated successfully!');
+      router.push('/admin/products');
     } catch (error) {
-      console.error('Error adding product:', error);
-      alert(`Failed to add product: ${error.message}`);
+      console.error('Error:', error);
+      alert('Failed to update product.');
     } finally {
       setUploading(false);
     }
@@ -72,36 +100,74 @@ export default function AddProductPage() {
   const handleImageUpload = async (e) => {
     const files = Array.from(e.target.files);
     setUploading(true);
-
+  
     for (const file of files) {
       const formData = new FormData();
       formData.append('file', file);
-
+  
       try {
-        const response = await fetch('/api/upload', {
-          method: 'POST',
-          body: formData,
-        });
+        const response = await fetch('/api/upload', { method: 'POST', body: formData });
         const result = await response.json();
-        if (result.secure_url && result.public_id) {
-          setImages((prev) => [...prev, { url: result.secure_url, public_id: result.public_id }]);
-        } else {
-          console.error('Upload failed:', result);
-          alert(`Failed to upload image: ${result.error || 'Unknown error'}`);
+        if (result.secure_url) {
+          setImages((prev) => [...prev, {
+            url: result.secure_url,
+            public_id: result.public_id, // Store public_id
+            altText: null,
+            isPrimary: prev.length === 0,
+          }]);
         }
       } catch (error) {
         console.error('Upload error:', error);
-        alert(`Failed to upload image: ${error.message}`);
       }
     }
     setUploading(false);
   };
 
+  const handleDeleteImage = async (image, index) => {
+    if (!confirm('Delete this image? It will be removed from Cloudinary and the product.')) return;
+  
+    try {
+      const response = await fetch(`/api/products/${productId}/image?url=${encodeURIComponent(image.url)}`, {
+        method: 'DELETE',
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to delete image');
+      }
+  
+      // Update local state to remove the image
+      setImages((prev) => prev.filter((_, i) => i !== index));
+      alert('Image deleted successfully!');
+    } catch (error) {
+      console.error('Delete error:', error);
+      alert(`Failed to delete image: ${error.message}`);
+    }
+  };
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-red-500">
+        {error}
+      </div>
+    );
+  }
+
+  if (!product) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-gray-600">
+        Loading...
+      </div>
+    );
+  }
+
   return (
     <main className="max-w-2xl mx-auto py-12 px-4 mt-24 font-sans">
-      <h1 className="text-3xl font-semibold mb-8 font-mono">Add New Product</h1>
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-semibold font-mono">Edit Product: {product.name}</h1>
+        <Link href="/admin/products" className="text-blue-500 hover:underline">Back to Products</Link>
+      </div>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        {/* Name */}
         <div>
           <label className="block text-sm font-medium mb-2">Name *</label>
           <input
@@ -111,7 +177,6 @@ export default function AddProductPage() {
           {errors.name && <p className="text-red-500 text-sm">{errors.name.message}</p>}
         </div>
 
-        {/* Description */}
         <div>
           <label className="block text-sm font-medium mb-2">Description *</label>
           <textarea
@@ -122,7 +187,6 @@ export default function AddProductPage() {
           {errors.description && <p className="text-red-500 text-sm">{errors.description.message}</p>}
         </div>
 
-        {/* Price and Category */}
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium mb-2">Price (₦, e.g., 9999.99) *</label>
@@ -149,7 +213,6 @@ export default function AddProductPage() {
           </div>
         </div>
 
-        {/* Gender and Size */}
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium mb-2">Gender</label>
@@ -178,7 +241,6 @@ export default function AddProductPage() {
           </div>
         </div>
 
-        {/* Color and Style */}
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium mb-2">Color</label>
@@ -198,7 +260,6 @@ export default function AddProductPage() {
           </div>
         </div>
 
-        {/* Stock */}
         <div>
           <label className="block text-sm font-medium mb-2">Stock Quantity</label>
           <input
@@ -210,7 +271,6 @@ export default function AddProductPage() {
           {errors.stock && <p className="text-red-500 text-sm">{errors.stock.message}</p>}
         </div>
 
-        {/* isFeatured and isArchived */}
         <div className="grid grid-cols-2 gap-4">
           <div>
             <label className="flex items-center text-sm font-medium mb-2">
@@ -234,27 +294,29 @@ export default function AddProductPage() {
           </div>
         </div>
 
-        {/* Images */}
         <div>
-          <label className="block text-sm font-medium mb-2">Images (Upload multiple; first will be primary) *</label>
+          <label className="block text-sm font-medium mb-2">Images (Edit: Add new, replace by uploading, delete existing) *</label>
           <input
             type="file"
             multiple
             accept="image/*"
             onChange={handleImageUpload}
             disabled={uploading}
-            className="w-full p-3 border rounded-md"
+            className="w-full p-3 border rounded-md mb-4"
           />
           {uploading && <p className="text-blue-500">Uploading...</p>}
           {images.length > 0 && (
-            <div className="mt-4 grid grid-cols-4 gap-2">
+            <div className="grid grid-cols-4 gap-2">
               {images.map((img, idx) => (
                 <div key={idx} className="relative">
-                  <img
-                    src={img.url}
-                    alt={`Preview ${idx + 1}`}
-                    className="w-20 h-20 object-cover rounded"
-                  />
+                  <img src={img.url} alt={img.altText || `Image ${idx + 1}`} className="w-20 h-20 object-cover rounded" />
+                  <button
+                    type="button"
+                    onClick={() => handleDeleteImage(img, idx)}
+                    className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs"
+                  >
+                    ×
+                  </button>
                 </div>
               ))}
             </div>
@@ -266,7 +328,7 @@ export default function AddProductPage() {
           disabled={uploading}
           className="w-full bg-black text-white py-3 rounded-md hover:bg-gray-800 disabled:opacity-50"
         >
-          {uploading ? 'Adding Product...' : 'Add Product'}
+          {uploading ? 'Updating...' : 'Update Product'}
         </button>
       </form>
     </main>
