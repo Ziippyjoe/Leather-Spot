@@ -14,7 +14,7 @@ function HeroSection() {
   const oParallax = useTransform(scrollY, [0, 400], [0, 60]); // adjust 30px as strength
 
   return (
-    <section className="relative h-[100vh] w-full flex overflow-hidden bg-black pb-10">
+    <section className="relative h-[100vh] w-full flex overflow-hidden bg-black">
       <motion.div
         className="flex w-full h-full"
         initial={{ scale: 1.3 }}
@@ -42,7 +42,7 @@ function HeroSection() {
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: parentDuration + tagDelayStep * 1, duration: 0.45, ease: 'easeOut' }}
-            className="absolute top-70 right-10 bg-[#1b1b1b]/70 text-white/90 px-4 py-2 text-[9px] uppercase tracking-wider backdrop-blur-xl"
+            className="absolute top-80 right-10 bg-[#1b1b1b]/70 text-white/90 px-4 py-2 text-[9px] uppercase tracking-wider backdrop-blur-xl"
           >
             Coats & Jackets
           </motion.div>
@@ -68,7 +68,7 @@ function HeroSection() {
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: parentDuration + tagDelayStep * 3, duration: 0.45, ease: 'easeOut' }}
-            className="absolute top-70 right-18 bg-[#1b1b1b]/70 text-white/90 px-4 py-2 text-[9px] uppercase tracking-wider backdrop-blur-xl"
+            className="absolute top-83 right-10 bg-[#1b1b1b]/70 text-white/90 px-4 py-2 text-[9px] uppercase tracking-wider backdrop-blur-xl"
           >
             Shoes & Boots
           </motion.div>
@@ -81,7 +81,7 @@ function HeroSection() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: lastTagDelay + 0.14, duration: 0.55, ease: 'easeOut' }}
-        className="absolute bottom-26 left-8 z-20 bg-[#1b1b1b]/70 backdrop-blur-2xl px-6 py-4 max-w-sm text-left text-[#fdfdfde2]"
+        className="absolute bottom-26 left-8 z-20 bg-[#0d3d4ab8] backdrop-blur-2xl px-6 py-4 max-w-sm text-left text-[#fdfdfde2]"
       >
         <h1 className="text-xl md:text-xl tracking-tighter flex gap-2 italic">
           Objective: Leather
