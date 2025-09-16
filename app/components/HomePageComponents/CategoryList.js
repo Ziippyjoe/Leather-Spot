@@ -13,10 +13,10 @@ export default async function CategoryList() {
   return (
     <section className="max-w-7xl mx-auto px-4 py-20">
       <h2 className="text-2xl font-mono uppercase mb-10 text-center">Shop by Category</h2>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">
         {categories.map((cat) => (
           <Link key={cat.id} href={`/${cat.slug}`} className="group block mb-4">
-            <div className="relative overflow-hidden bg-black/5 h-100 flex items-center justify-center ">
+            <div className="relative overflow-hidden bg-black/5 h-60 flex items-center justify-center ">
               { /* Prefer category.image, fallback to first product primary image if available */ }
               {cat.image ? (
                 <img

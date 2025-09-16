@@ -23,7 +23,7 @@ export default function NavbarMenu() {
 
       {/* Overlay */}
       <div
-        className={`fixed top-0 right-0 w-full h-screen bg-black/30 z-[100] transition-opacity duration-300 ${
+        className={`fixed top-0 right-0 w-full h-screen bg-black/40 z-[100] transition-opacity duration-300 ${
           showMenu ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
         onClick={toggleMenu}

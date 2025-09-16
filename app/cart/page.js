@@ -122,7 +122,7 @@ export default function CartPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen mx-auto max-w-7xl px-4 py-12 text-gray-500 text-center text-sm bg-white flex items-center justify-center">
+      <div className="min-h-screen mx-auto max-w-7xl px-4 py-12 text-gray-500 text-center text-sm flex items-center justify-center">
         Loading cart...
       </div>
     );
@@ -130,7 +130,7 @@ export default function CartPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen mx-auto max-w-7xl px-4 py-12 text-red-500 text-center text-2xl bg-white">
+      <div className="min-h-screen mx-auto max-w-7xl px-4 py-12 text-red-500 text-center text-2xl">
         Error: {error}
       </div>
     );
@@ -138,10 +138,10 @@ export default function CartPage() {
 
   if (!cart || !Array.isArray(cart?.items) || cart.items.length === 0) {
     return (
-      <div className="min-h-screen mx-auto max-w-7xl pb-20 pt-28 bg-white px-6">
-        <h1 className="mb-4 w-full text-sm italic sticky top-0 pt-13 pb-2 bg-white border-b border-black/10 z-20">Shopping Cart</h1>
+      <div className="min-h-screen mx-auto max-w-7xl pb-20 pt-28 px-6">
+        <h1 className="mb-4 w-full text-sm italic sticky top-0 pt-13 pb-2 border-b border-black/10 z-20 bg-white">Shopping Cart</h1>
         <p className="text-gray-500 text-sm">Your cart is empty.</p>
-        <Link href="/" className="text-blue-500 hover:underline mt-4 inline-block text-sm">
+        <Link href="/" className="text-blue-500 underline mt-4 inline-block text-sm">
           Continue Shopping
         </Link>
       </div>
@@ -154,8 +154,8 @@ export default function CartPage() {
   }, 0);
 
   return (
-    <main className="min-h-screen mx-auto max-w-7xl pb-20 pt-24 bg-white px-6">
-      <h1 className="mb-4 w-full text-sm italic pt-13 pb-2 bg-white border-b border-black/10 z-20">Shopping Cart</h1>
+    <main className="min-h-screen mx-auto max-w-7xl pb-20 pt-24 px-6">
+      <h1 className="mb-4 w-full text-sm italic pt-13 pb-2 border-b border-black/10 z-20 bg-white">Shopping Cart</h1>
       <div className="flex flex-col lg:flex-row gap-8">
         {/* Cart Items */}
         <div className="flex-1">
@@ -169,7 +169,7 @@ export default function CartPage() {
                   className="w-37 object-cover bg-black/5"
                 />
               ) : (
-                <div className="w-24 h-24 bg-gray-200 flex items-center justify-center text-gray-500">
+                <div className="w-24 h-24 bg-gray-300 flex items-center justify-center text-gray-500">
                   No image
                 </div>
               )}

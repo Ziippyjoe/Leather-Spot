@@ -91,16 +91,18 @@ export default function ProductPage({ params }) {
 
   return (
     <main className="min-h-screen mx-auto mt-16 pb-38">
-      <div className="w-full h-full flex flex-col md:flex-row border-b border-black/10">
+      <div className="w-full min-h-screen flex flex-col md:flex-row border-b border-black/10">
+        <div className='h-full w-30'>
+        </div>
         {/* Left Side: Main Image + All Images */}
-        <div className="w-full md:w-1/2 bg-black/6">
+        <div className="w-full md:w-150 bg-black/6">
           {product.images.length > 0 ? (
             <div className="flex flex-col">
               {/* Main Image */}
               <img
                 src={product.images[0].url}
                 alt={product.images[0].altText ?? product.name}
-                className="w-full h-auto max-h-[55rem] object-cover px-15 "
+                className="w-full h-auto max-h-[55rem] object-cover "
               />
               {/* All Images */}
               {product.images.length > 1 && (
@@ -124,7 +126,7 @@ export default function ProductPage({ params }) {
         </div>
 
         {/* Right Side: Product Details (Sticky) */}
-        <div className="w-full md:w-1/2 flex flex-col gap-6 md:sticky md:-top-38 md:self-start py-16 px-12 md:px-40 bg-white">
+        <div className="w-full md:w-200 flex flex-col gap-6 md:sticky md:-top-38 md:self-start py-16 px-12 md:px-40 bg-white">
           <h1 className="uppercase font-mono text-2xl font-semibold">{product.name}</h1>
           <div className="border-t border-gray-200"></div>
           

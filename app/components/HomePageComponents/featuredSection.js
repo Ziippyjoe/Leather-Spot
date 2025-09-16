@@ -22,11 +22,11 @@ async function fetchFeaturedCategories() {
 export default function FeaturedCategories() {
 
   return (
-    <section className="py-24 mx-auto ">
+    <section className="py-24 mx-auto px-20">
       <h2 className="text-2xl font-mono uppercase mb-6 text-center">Featured</h2>
-      <div className="flex w-full h-220">
+      <div className="flex w-full h-130">
           <div className='h-full w-[40%] bg-amber-900/70'>
-            <img src="/featuredleft.jpeg" alt="featured editorial" className="w-full h-full object-cover object-top" />
+            <img src="/featuredleft.jpg" alt="featured editorial" className="w-full h-full object-cover object-top" />
           </div>
           <div className='h-full w-[60%] bg-black'></div>
       </div>

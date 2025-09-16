@@ -22,11 +22,11 @@ export default async function NewArrivals() {
             <img
               src={product.images[0]?.url || '/images/placeholder.jpg'}
               alt={product.name}
-              className="w-full h-90 object-cover group-hover:scale-105 transition-transform duration-300 bg-black/7"
+              className="w-full h-100 object-cover group-hover:scale-105 transition-transform duration-300 bg-black/7"
             />
             <div className='p-2 flex gap-4 justify-between'>
               <h3 className="text-xs font-mono uppercase">{product.name}</h3>
-              <p className="text-gray-600 text-xs">
+              <p className="text-gray-700 text-xs">
                 ${(product.priceCents / 100)}
               </p>
               
