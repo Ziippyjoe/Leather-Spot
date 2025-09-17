@@ -22,7 +22,7 @@ export default function Navbar() {
   return (
     <nav
       className={`fixed top-0 left-0 w-full z-[1000] transition-colors duration-300 ease-in-out h-12
-        ${atTop ? 'bg-transparent' : 'bg-[#fdfdfd] '}`}
+        ${atTop ? 'bg-transparent' : 'bg-[#fdfdfd] shadow'}`}
     >
       <div className="h-full w-full flex justify-between items-center px-4 md:px-8 font-sans">
         {/* Left Side: Menu and Main Links */}

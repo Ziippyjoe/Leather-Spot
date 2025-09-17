@@ -81,7 +81,7 @@ function HeroSection() {
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: lastTagDelay + 0.14, duration: 0.55, ease: 'easeOut' }}
-        className="absolute bottom-26 left-8 z-20 bg-[#0d3d4ab8] backdrop-blur-2xl px-6 py-4 max-w-sm text-left text-[#fdfdfde2]"
+        className="absolute bottom-26 left-8 z-20 bg-[#1b1b1b]/70 backdrop-blur-2xl px-6 py-4 max-w-sm text-left text-[#fdfdfde2]"
       >
         <h1 className="text-xl md:text-xl tracking-tighter flex gap-2 italic">
           Objective: Leather

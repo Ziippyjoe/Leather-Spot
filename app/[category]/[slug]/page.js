@@ -90,12 +90,12 @@ export default function ProductPage({ params }) {
   }
 
   return (
-    <main className="min-h-screen mx-auto mt-16 pb-38">
+    <main className="min-h-screen mx-auto mt-12 pb-38">
       <div className="w-full min-h-screen flex flex-col md:flex-row border-b border-black/10">
         <div className='h-full w-30'>
         </div>
         {/* Left Side: Main Image + All Images */}
-        <div className="w-full md:w-150 bg-black/6">
+        <div className="w-1/2 bg-black/6">
           {product.images.length > 0 ? (
             <div className="flex flex-col">
               {/* Main Image */}
@@ -126,7 +126,7 @@ export default function ProductPage({ params }) {
         </div>
 
         {/* Right Side: Product Details (Sticky) */}
-        <div className="w-full md:w-200 flex flex-col gap-6 md:sticky md:top-16 md:self-start py-16 px-12 md:px-40 bg-white">
+        <div className="w-1/2 flex flex-col gap-6 md:sticky md:top-16 md:self-start py-16 pt-18 px-12 md:px-40">
           <h1 className="uppercase font-mono text-2xl font-semibold">{product.name}</h1>
           <div className="border-t border-gray-200"></div>
           
